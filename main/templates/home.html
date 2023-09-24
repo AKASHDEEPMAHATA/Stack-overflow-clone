@@ -1,0 +1,119 @@
+
+{% extends "base.html" %}
+{% load humanize %}
+
+{% block title %}Home{% endblock title %}
+
+
+{% block content %}
+
+
+<!-- Questions section starts -->
+<div class="container my-5">
+    <!-- Questions list -->
+
+    {% for i in questions %}
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title ">
+                <i class="fa-solid fa-file-circle-question"></i>
+                <a href="/detail/{{i.id}}">
+                    {{i.title}}
+                </a>
+                
+            </h5>
+            <hr>
+            
+            <p class="card-text">
+                <i class="fa-solid fa-circle-info"></i>
+                
+                {{i.details|safe}}
+            </p>
+            <p>
+                <i class="fa-solid fa-user"></i>
+                Asked by : @
+                <a href="" class="me-2">{{i.user.username}}</a>
+            
+                &nbsp;|&nbsp; 
+            
+                <i class="fa-solid fa-file-lines"></i> Answers : <a href="" class="me-2">{{i.answer_set.count}} answers</a>
+            
+                &nbsp;|&nbsp;
+            
+                <i class="fa-solid fa-comment"></i>
+                Comments :  <a href="" class="me-2">{{i.total_comments}} comments</a>
+                
+                &nbsp;|&nbsp; 
+                
+                <i class="fa-solid fa-clock"></i> Time :  <a href="" class="me-2">{{i.add_time}}</a>
+            </p>
+        </div>
+    </div>
+
+    {% endfor %}
+
+</div>
+<!-- Questions section ends -->
+
+
+
+
+
+<!-- Pagination starts-->
+<nav class="my-3 container">
+    <ul class="pagination">
+
+      {% if questions.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page={{questions.previous_page_number}}">Previous</a></li>
+      {% endif %}
+      
+      {% for i in questions.paginator.page_range %}
+
+      {% if questions.number == i %}
+      
+      <li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+
+      {% else %}
+
+      <li class="page-item "><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+
+      {% endif %}
+      {% endfor %}
+      
+
+
+      {% if questions.has_next %}
+      <li class="page-item"><a class="page-link" href="?page={{questions.next_page_number}}">Next</a>
+      </li>
+      {% endif %}
+      
+
+    </ul>
+  </nav>
+<!-- Pagination ends-->
+
+
+
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
